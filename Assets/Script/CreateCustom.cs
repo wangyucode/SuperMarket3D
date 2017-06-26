@@ -27,5 +27,4 @@ public class CreateCustom : MonoBehaviour {
         NavMeshAgent agent = customer.GetComponent<NavMeshAgent>();
         agent.destination = doorOut.transform.position;
     }
-    
 }
