@@ -8,6 +8,8 @@ public class TouchInput : MonoBehaviour
     public LayerMask floorLayer;
     public GameObject counterPrefab;
     public float counterHeight= 0.5f;
+
+    List<Vector3> areadyPuted = new List<Vector3>();
     // Use this for initialization
     void Start()
     {
@@ -50,12 +52,25 @@ public class TouchInput : MonoBehaviour
 
     private void generateCounter(RaycastHit hitInfo)
     {
+        bool isPuted = false;
         Vector3 formatPosition = hitInfo.point;
         formatPosition.x = (int)formatPosition.x + 0.5f;
         formatPosition.y = counterHeight;
         formatPosition.z = (int)formatPosition.z + 0.5f;
+        foreach (Vector3 putedPosition in areadyPuted)
+        {
+            if (putedPosition.Equals(formatPosition))
+            {
+                isPuted = true;
+            }
+        }
+        if (!isPuted) {
 
-        GameObject counter = Instantiate(counterPrefab);
-        counter.transform.position = formatPosition;
+            areadyPuted.Add(formatPosition);
+
+            GameObject counter = Instantiate(counterPrefab);
+            counter.transform.position = formatPosition;
+        }
+        
     }
 }
